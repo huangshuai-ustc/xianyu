@@ -1,0 +1,27 @@
+	Project2共分为三个子任务，首先选取待处理的数据，就像右边的fig.1一样，取其中的五列作为x，它们分别是温度，湿度，压强，每分钟PM2的平均值，每小时PM2.5的平均值；取每天PM2.5的平均值作为y。
+	第二个任务，Basic Statistics Analysis，使用python内置的mean()，median()，max()，min()，var()，等函数对pandas包读入的右图数据进行统计描述，而后通过红色的这个式子来计算数据的密度分布并画出pmf图，右图fig.2是其中一个自变量x的pmf图。
+	第三个任务，Data Visualization，使用python包matplotlib.pyplot对每个变量画箱型图和散点图以观察分布，同时用seaborn.distplot方法画y的密度曲线。
+	关于Project2，其自变量x大都有一定程度的离群值；x1和x3的分布非常均匀，但x2、x4和x5非常混乱；x1，x3，x4，x5与y呈正相关，x2s与y没有明确的关系。
+	总结：
+	The impact of dirty data on data analysis is significant
+	Observe the characteristics of data in advance and actively deal with unreasonable parts of the data
+	Eliminate outliers, fill in missing values, remove duplicate values, etc
+
+	Project3共分为三个子任务，使用与Project2相同的数据集。
+	第一个任务，Basic Statistic，使用pandas包导入数据后使用matplotlib画出柱状图，同时对变量计算其均值和方差以及协方差矩阵如右图fig.3。
+	第二个任务，Simple Linear Regression，使用简单的线性函数对数据进行回归分析，如右图fig.4所示，同时为了检查拟合效果，需要计算r方，画出qq图，做卡方检验。顺便还使用了高阶的单变量非线性拟合。
+	第三个任务，Multi-variable Linear Regression，将五个自变量一起做多元线性回归分析，同时画出qq图和残差柱状图。
+	得到的结论是，单变量线性拟合得到的r方很小，说明拟合效果很差，而多变量的线性拟合具有很高的r方值，说明拟合的效果很好，拟合结果如下。
+	总结：
+	The effectiveness of linear and nonlinear fitting depends on the p-value and r-squared values
+	From the perspective of the correlation matrix, the positive and negative correlations of the coefficients of the variables are consistent with the positive and negative correlations in the correlation matrix table.
+	Project4共分为五个子任务，使用与Project2相同的数据集。
+	第一个任务，Check for Stationarity and Non-Stationary Properties，使用pandas读取数据后用matplotlib画出整个数据集的图以及使用statsmodels.tsa.stattools.adfuller做ADF检验来检查数据的stationarity性质。
+	第二个任务，使用简单移动平均模型拟合训练数据，这一步主要是使用到了sklearn包来计算RMSE and MAPE by varying k and plot them。
+	第三个任务，使用指数平滑模型拟合训练数据，跟任务2一样计算RMSE and MAPE by varying k and plot them。然后画出拟合数据的结果和原始结果如图fig.5。
+	第四个任务，使用AR(p)模型拟合训练数据，also使用任务2的方法计算RMSE and MAPE by varying k and plot them，然后画出拟合数据的结果和原始结果的图。以及画出qq图和残差柱状图来观察拟合的效果，右图fig.6是the AR(p) model of predicted and original data 
+	第五个任务，使用测试集比较所有模型的结果，对比结果在下面。
+	得到的结论是，the AR (p) model performed the best, with the lowest RMSE of approximately 15.97, because it takes into account the temporal correlation in the data.
+	总结：
+	The AR (p) model has better fitting and prediction performance compared to other models
+

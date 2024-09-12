@@ -1,0 +1,7 @@
+#__layout > div > div.props-main.w-1170 > div.props-body > div.props-right > div.maininfo > div.house-price > div > span.average
+#__layout > div > div.props-main.w-1170 > div.props-body > div.props-right > div.maininfo > div.house-price > div > span.average
+# __layout > div > div.props-main.w-1170 > div:nth-child(2) > div > p
+
+
+
+

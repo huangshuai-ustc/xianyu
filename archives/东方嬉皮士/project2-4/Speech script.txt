@@ -1,0 +1,27 @@
+	Project 2 is divided into three sub tasks. Firstly, select the data to be processed, just like Fig.1 on the right. Take five columns as x, which are temperature, humidity, pressure, average PM2 per minute, and average PM2.5 per hour; Take the average daily PM2.5 as y.
+	The task 2, Basic Statistics Analysis, uses Python's built-in functions such as mean(), median(), max(), min(), var() to statistically describe the data in the right image read by the pandas package. Then, the density distribution of the data is calculated using the red formula and a PMF graph is drawn. Figure 2 on the right is the PMF graph of one of the independent variables x.
+	The task 3, Data Visualization, uses the Python package matplotlib.pyplot to draw box plots and scatter plots for each variable to observe distribution, while using the seaborn.distplot method to draw the density curve of y.
+	Regarding Project 2, most of its independent variables x have a certain degree of outliers; The distribution of x1 and x3 is very uniform, but x2, x4, and x5 are very chaotic; X1, x3, x4, x5 are positively correlated with y, while x2s has no clear relationship with y.
+	Summary:
+	The impact of dirty data on data analysis is significant
+	Observe the characteristics of data in advance and actively deal with unreasonable parts of the data
+	Eliminate outliers, fill in missing values, remove duplicate values, etc
+
+	Project 3 is divided into three subtasks, using the same dataset as Project 2.
+	The task 1 is Basic Statistics. After importing data using the pandas package, use matplotlib to draw a bar chart. At the same time, calculate the mean and variance of the variables, as well as the covariance matrix, as shown in Figure 3 on the right.
+	The task 2, Simple Linear Regression, uses a simple linear function to perform regression analysis on the data, as shown in Fig.4 on the right. At the same time, in order to check the fitting effect, it is necessary to calculate the r-square, draw a qq graph, and perform chi square test. By the way, high-order univariate nonlinear fitting was also used.
+	The task 3, Multi variable Linear Regression, involves conducting multiple linear regression analysis on five independent variables together, while drawing a qq chart and residual bar chart.
+The conclusion drawn is that the r-squared value obtained from univariate linear fitting is very small, indicating poor fitting effect, while multivariate linear fitting has a high r-squared value, indicating good fitting effect. The fitting results are as follows.
+	Summary:
+	The effectiveness of linear and non-linear fitting depends on the p-value and r-squared values
+	From the perspective of the correlation matrix, the positive and negative correlations of the coefficients of the variables are consistent with the positive and negative correlations in the correlation matrix table
+
+	Project 4 is divided into five subtasks, using the same dataset as Project 2.
+	The task 1 is to Check for Stationarity and Non Stationary Properties. After reading the data using pandas, use matplotlib to draw a graph of the entire dataset, and perform ADF tests using statsmodels.tsa.stattools.adfuller to check the stationarity properties of the data.
+	The task 2 is to use a simple moving average model to fit the training data. This step mainly uses the sklearn package to calculate RMSE and MAPE by varying k and plot them.
+	The task 3 is to use an exponential smoothing model to fit the training data, and calculate RMSE and MAPE by varying k and plot them as in Task 2. Then draw the results of fitting the data and the original results as shown in Figure Fig.5.
+	The task 4 is to use the AR (p) model to fit the training data, and also use the method in Task 2 to calculate RMSE and MAPE by varying k and plot them. Then, draw a graph of the fitted data and the original results. And draw the qq chart and residual bar chart to observe the fitting effect. Figure 6 on the right shows the AR (p) model of predicted and original data
+	The task 5 is to compare the results of all models using the test set, and the comparison results are shown below.
+	The conclusion drawn is that the AR (p) model performs the best, with the lowest RMSE of approximation 15.97, because it takes into account the temporary correlation in the data
+	Summary:
+	The AR (p) model has better fitting and prediction performance compared to other models
