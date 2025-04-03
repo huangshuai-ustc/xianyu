@@ -1,0 +1,89 @@
+comprpg save file
+
+turn: 10
+
+player: 0
+money: 8
+electricity: 29
+n_active: 2
+active_characters: ['HTML Hero', 'Python Pal']
+items: [{'name': 'Backup Battery', 'description': 'Recharges 10 electricity', 'electricity': 10, 'price': 20}, {'name': 'RAM Boost', 'description': 'Increases damage by 2 when attacking. Lasts 3 turns.', 'damage': 2, 'turns': 3, 'price': 10}]
+characters:
+	name: Python Pal
+	health: 19
+	defence: 0
+	effects: []
+	defeated: False
+	name: C Charmer
+	health: 20
+	defence: 0
+	effects: []
+	defeated: False
+	name: HTML Hero
+	health: 19
+	defence: 0
+	effects: []
+	defeated: False
+	name: Java Judger
+	health: 15
+	defence: 0
+	effects: []
+	defeated: False
+	name: Binary Bot
+	health: 7
+	defence: 0
+	effects: []
+	defeated: False
+
+player: 1
+money: 12
+electricity: 20
+n_active: 2
+active_characters: ['HTML Hero', 'Binary Bot']
+items: []
+characters:
+	name: Network Ninja
+	health: 16
+	defence: 0
+	effects: []
+	defeated: False
+	name: Python Pal
+	health: 22
+	defence: 0
+	effects: []
+	defeated: False
+	name: Binary Bot
+	health: 20
+	defence: 0
+	effects: []
+	defeated: False
+	name: HTML Hero
+	health: 11
+	defence: 0
+	effects: [{'damage': 2, 'turns': 2}]
+	defeated: False
+	name: Haskell Heroine
+	health: 18
+	defence: 0
+	effects: []
+	defeated: False
+
+history:
+	[('Java Judger', 'swap', 'HTML Hero')]
+	[('Binary Bot', 'attack', 'Keyboard Bash', 2, 1, 0, ['HTML Hero']), ('Network Ninja', 'item', 'Screen Repair Kit')]
+	[('HTML Hero', 'attack', 'JavaScript Jab', 1, 1, 0, ['Network Ninja']), ('C Charmer', 'swap', 'Binary Bot')]
+	[('Binary Bot', 'defend', 'Firewall', 2, 0), ('Network Ninja', 'attack', 'Code Injection', 10, 1, 15, ['Binary Bot'])]
+	[('HTML Hero', 'defend', 'Firewall', 2, 0), ('Binary Bot', 'attack', 'Binary Blast', 5, 1, 5, ['Network Ninja'])]
+	[('Binary Bot', 'swap', 'HTML Hero')]
+	[('HTML Hero', 'attack', 'CSS Crusade', 3, 1, 2, ['HTML Hero']), ('Binary Bot', 'swap', 'Python Pal')]
+	[('HTML Hero', 'attack', 'JavaScript Jab', 1, 1, 0, ['HTML Hero']), ('Network Ninja', 'swap', 'Haskell Heroine')]
+	[('HTML Hero', 'item', 'Reboot in Safe Mode'), ('Python Pal', 'defend', 'Duck Type Dodge', 1, 0)]
+	[('HTML Hero', 'attack', 'CSS Crusade', 3, 1, 2, ['HTML Hero']), ('Haskell Heroine', 'swap', 'Network Ninja')]
+	[('HTML Hero', 'swap', 'Binary Bot')]
+	[('HTML Hero', 'attack', 'JavaScript Jab', 1, 1, 0, ['Python Pal']), ('Network Ninja', 'defend', 'VPN Tunnel', 5, 5)]
+	[('Binary Bot', 'attack', 'Binary Blast', 5, 1, 5, ['HTML Hero']), ('Python Pal', 'attack', 'Indentation Impact', 3, 1, 2, ['Network Ninja'])]
+	[('HTML Hero', 'attack', 'CSS Crusade', 3, 1, 2, ['Binary Bot']), ('Network Ninja', 'swap', 'Binary Bot')]
+	[('Binary Bot', 'swap', 'HTML Hero')]
+	[('HTML Hero', 'attack', 'CSS Crusade', 3, 1, 2, ['HTML Hero']), ('Binary Bot', 'attack', 'Assembly Attack', 2, 2, 1, ['HTML Hero', 'Python Pal'])]
+	[('HTML Hero', 'attack', 'CSS Crusade', 3, 1, 2, ['HTML Hero']), ('Python Pal', 'attack', 'Indentation Impact', 3, 1, 2, ['HTML Hero'])]
+	[('HTML Hero', 'item', 'RAM Boost'), ('Binary Bot', 'defend', 'Firewall', 2, 0)]

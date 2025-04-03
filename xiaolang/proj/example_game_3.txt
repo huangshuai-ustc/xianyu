@@ -1,0 +1,79 @@
+comprpg save file
+
+turn: 5
+
+player: 0
+money: 22
+electricity: 55
+n_active: 2
+active_characters: ['Python Pal', 'HTML Hero']
+items: []
+characters:
+	name: Hardware Hacker
+	health: 25
+	defence: 0
+	effects: []
+	defeated: False
+	name: Python Pal
+	health: 1
+	defence: 0
+	effects: [{'damage': 2, 'turns': 1}]
+	defeated: False
+	name: C Charmer
+	health: 20
+	defence: 0
+	effects: []
+	defeated: False
+	name: Linux Legend
+	health: 20
+	defence: 0
+	effects: []
+	defeated: False
+	name: HTML Hero
+	health: 16
+	defence: 0
+	effects: []
+	defeated: False
+
+player: 1
+money: 25
+electricity: 9
+n_active: 2
+active_characters: ['Network Ninja', 'Haskell Heroine']
+items: []
+characters:
+	name: Haskell Heroine
+	health: 18
+	defence: 0
+	effects: []
+	defeated: False
+	name: HTML Hero
+	health: 25
+	defence: 0
+	effects: []
+	defeated: False
+	name: Binary Bot
+	health: 20
+	defence: 0
+	effects: []
+	defeated: False
+	name: Hardware Hacker
+	health: 25
+	defence: 0
+	effects: []
+	defeated: False
+	name: Network Ninja
+	health: 6
+	defence: 2
+	effects: []
+	defeated: False
+
+history:
+	[('Hardware Hacker', 'swap', 'Linux Legend')]
+	[('Network Ninja', 'defend', 'VPN Tunnel', 5, 5), ('Hardware Hacker', 'swap', 'HTML Hero')]
+	[('Linux Legend', 'swap', 'Python Pal')]
+	[('Network Ninja', 'attack', 'Packet Sniffer', 1, 2, 0, ['HTML Hero', 'Python Pal']), ('HTML Hero', 'swap', 'Haskell Heroine')]
+	[('Python Pal', 'item', 'RAM Boost'), ('HTML Hero', 'attack', 'CSS Crusade', 3, 1, 2, ['Network Ninja'])]
+	[('Network Ninja', 'attack', 'Code Injection', 10, 1, 15, ['Python Pal']), ('Haskell Heroine', 'attack', 'Monadic Might', 5, 1, 2, ['HTML Hero'])]
+	[('Python Pal', 'attack', 'Syntax Strike', 4, 1, 3, ['Network Ninja']), ('HTML Hero', 'item', 'Backup Battery')]
+	[('Network Ninja', 'attack', 'Code Injection', 10, 1, 15, ['Python Pal']), ('Haskell Heroine', 'attack', 'Lambda Lunge', 3, 1, 0, ['HTML Hero'])]

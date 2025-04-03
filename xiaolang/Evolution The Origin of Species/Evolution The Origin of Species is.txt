@@ -1,0 +1,413 @@
+**Evolution: The Origin of Species** is a popular board game that is based on Darwin's Theory of Evolution. We will create a simulation of the game.
+
+In terms of the game, two or more players create their own animals, make them evolve and hunt in order to survive.
+
+The game has the following main entities:
+1. A deck of cards (one side of each card is an animal, and another is a trait )
+2. Players (2 or more)
+3. (Abstract) Animals
+4. Animal Traits
+5. Food base (red and blue tokens)
+
+Animals are not defined, and are specified as abstract entities, During the game (the development phase) plavers 'construct' their animals by assigning traits to them.
+
+**Rules (of the board game)**
+
+Goal: The player with the largest number of victory points at the end of the game is the winner. The rankings of players in each match are determined as follows based on the number of number of `Victory Points` . These points are awarded to a player for all their surviving animals and their traits.
+
+**Preparation**
+
+The deck is shuffled. Then each player gets 6 cards from the top of the deck to their hands. They roll dice to determine the first player.
+
+**The game turn structure**
+
+Each iteration of the game consists of four phases:
+
+- development phase
+- food bank determination phase
+- feeding phase
+- extinction and draw phase
+
+During each phase players act in order moving clockwise. The player who can't or doesn't want to act passes. Each phase ends when nobody can or want to act.
+
+**Development phase**
+
+This phase consists of several rounds. During the phase players can play their cards by putting them from their hands onto the table. Each player may play each card either as an animal or as a trait of an existing animal. lf a card is played as a trait, it is put underneath the corresponding animal. Some cards have two traits, but only one trait can be used - the chosen one. No animal can have two identical traits. Pairwise traits (e.g. "communication")are played only on a pair of animals. Such cards are placed between the two cards onto which they are played. No duplet of animals can have two identical pairwise traits. However an animal can have several different pairwisetraits with another animal.
+
+**Food bank (red tokens) determination phase**
+
+The amount of food available during this turn is determined at this time. Food bank estimated this way.
+
+- 2 players - number indicated by 1 die + 2
+- 3 players - sum of 2 dice
+- 4 players or more - sum of 2 dice +2
+
+The first player rolls the dice. Then the corresponding number of red tokens is put in the center of the table. That is a food bank for the current iteration.
+
+**Feeding phase**
+
+Feeding phase consists of several rounds. During each round, players, one by one, take one red food token from the food bank and put it on the top of one of their animals. A player can take more than one food token if ananimal has specified traits i.e. "communication". Some traits allow you to get blue "extra food" tokens, e.g. "cooperation".
+
+Animals need at least 1 food token to be fed without additional food requirements. Some traits such as 'big size' or 'carnivorous' increase food requirements (typically, by 1 red token).
+
+Animals with the "carnivore" trait might instead attack another animal of any player, ln this case, the player doesn't take food tokens from the food bank, instead, the "carnivore" animal gets 2 blue food tokens if the attack was successful. Eaten animal, all traits including pairwise traits associated with it are put into the corresponding player's discard pile. The "carnivorous" animal can attack only once during the feeding phase. lt cannot attack if it is fully fed.
+
+There are many traits that can prevent carnivorous attacks. For example, "camouflage" defends an animal from attack if the attacker does not have "sharp vision".
+
+Feeding phase ends when no tokens are left in the food bank or all animals are fed. Any remaining red tokens in the food bank are set aside.
+
+**Extinction and draw phase**
+
+At the beginning of this phase all animals which are not fully fed are put into corresponding player's discard piles, along with their traits as well as all pairwise traits associated with them (i.e."they are extinct"). Each plaver has its own discard pile.
+
+Then the first player deals new cards : one at a time in order, beginning from the first player. Each player gets in total the following number of cards: 1 + the number of survived animals belonging to the player. lf a player does not have any animals and cards in their hands then they take 6 cards from the deck during this phase. lf the deck is empty it's possible that one or more players get fewer cards then they need.
+
+All food tokens are removed from the animals. The new turn starts with the development phase again.
+
+**End of the game**
+
+After the deck is empty the last turn begins. After the extinction phase of the last turn the victory points are counted. Each player is awarded victory points as follows:
+
+- +2 points for each survived animal;
+- +1 point for each trait of survived animal
+- +1 point for each increase in food reguirements for an animal. (e.g., 1 parasite would be +2 (in addition to the animal points))
+
+To simplify our project, we will only support a subset of features defined in the game as listed below.
+
+**Important Note**: We want to keep our algorithms deterministic in order to check the correctness of submitted code more easily. So, we will not use a "dice" or any randomisation.
+
+- **Carnivore (reguires +1 food item)** - Can attack other animals in order to get fed, lf the attack is successful, the eaten animal counts as two food items (and the carnivore does not use the food bank).
+- **Communication** - Played on a pair of animals. When one animal gets food from the food bank (red token), the other animal also gets food (red token) out of turn.
+	- **Addition: the trait is** applied in a one directional way, and always between two animals having adjacent indices in a player's animal list. lf there is two valid options for the animal to play the trait with, we will choose the one with the higher index. For any valid (has the trait and is not fully fed) adjacent animal with the animal we fed (either by red_token or pairwise trait), we must consider both its adjacent animal pairing as well under the same rules. Note that you cannot play a pairwise trait between the same two animals more than once in any turn.
+- **Cooperation** - Same as **Communication**, but the second animal does decrease the amount of food in the food bank (red tokens) as the second animal gets a blue food token instead. When both **Cooperation** and **Communication** traits are present, the **Communication** trait cannot be played as it is a subset of the features of **Cooperation**.
+- **Swimming** - Can only be attacked by a carnivorous species possessing the *Swimming* trait. A carnivorous species with *Swimming* can only attack others with the *Swimming* trait.
+- **Running** (Note: an original rule has been changed!) - Can be attacked by a carnivorous species only when the latter possesses the *Running* trait as well. (Note: unlike the Swimming, carnivores with the Running trait are not restricted from attacking animals without that trait).
+- **High Body Weight (reguires +1 food item)** - This animal can only be attacked by a carnivorous species with *High Body Weight* but requires an extra food item (red token) to be fully fed.
+- **Burrowing** - When the species is *Fed*, it cannot be attacked by a carnivorous.
+- **Hibernation Ability** (Rule changed) - The species is always considered *Fed*, and it shall not take food.
+- **Camouflage** - The species can only be attacked by a carnivorous species possessing the *Sharp Vision* trait.
+- **Poisonous** (Rule changed) - The species are protected from being attacked by all carnivorous species.
+- **Sharp Vision** - A carnivorous species possessing this trait can attack species with the *Camouflage* trait.
+- **Parasite (reguires +2 food items)** - can only be used for other plavers, Once you get the card, you may redirect it to an animal of any other plaver. The trait increases their food consumption by 2 food items.
+
+We encode a trait with a dedicated number as follows.
+
+```
+TRAIT_CARNIVORE = 0
+TRAIT_COMMUNICATION = 1
+TRAIT_COOPERATION = 2
+TRAIT_SWIMMING = 3
+TRAIT_RUNNING = 4
+TRAIT_HIGH_BODY_WEIGHT = 5
+TRAIT_BURROWING = 6
+TRAIT_HIBERNATION =7
+TRAIT_CAMOUFLAGE = 8
+TRAIT_POISONOUS = 9
+TRAIT_SHARP_VISION = 10
+TRAIT_PARASITE = 11
+```
+And some pre-conditions this project may be used as follows.
+```
+# used for question 1(d)
+RED_TOKEN =0
+BLUE_TOKEN=1
+
+# used to index an animal template
+ANIMAL_TRAITS =0
+ANIMAL_FOOD_COUNT=1
+ANIMAL_IS_FULLY_FED =2
+
+# used to index a player template
+PLAYER_ANIMALS = 0
+```
+
+```
+traits_template =() # a tuple containing traits of the animal
+consumed_food_count_template = 0  # an int counting how much food the animal has consume
+is_fully_fed_template = False   # a boolean storing whether the animal is fully fed
+animal_template = [traits_template, consumed_food_count_template, is_fully_fed_template]
+animals_template =[]    # a list of animal templates
+player_template = [animals_template]    # a list; can contain other arguments as needed
+players_template =[]    #a list of player templates
+```
+
+Please read the above content carefully and wait for me to provide corresponding questions and answers later.
+
+Question 1
+In the first question, we will implement a number of useful functions that will be used later.
+In order to implement our simulation we will use the following data structure to represent our game objects:
+
+```
+traits_template =() # a tuple containing traits of the animal
+consumed_food_count_template = 0  # an int counting how much food the animal has consume
+is_fully_fed_template = False   # a boolean storing whether the animal is fully fed
+animal_template = [traits_template, consumed_food_count_template, is_fully_fed_template]
+animals_template =[]    # a list of animal templates
+player_template = [animals_template]    # a list; can contain other arguments as needed
+players_template =[]    #a list of player templates
+```
+
+**Function Interface**
+
+To facilitate an easier, more abstracted way of dealing with animals, their features and feeding status, implement basic functions listed below.
+
+**Note**: You may define other "helper" functions as needed throughout your solution, as long as you do not change the definition of the given functions.
+
+(a) (1.5 points): Write a function `**calculate_animal_food_reguirements(animal)**` to determine how many food items an animal should consume in order to become fully fed. You should take into account the `consumed_food_count` of the given animal in your solution.
+
+- Input:
+	- animal is a list or tuple following the format of animal template
+- Return:
+	- An integer representing the number of food tokens the animal needs to consume
+- Example:
+	```
+	animal =[(TRAIT_CARNIVORE, TRAIT_SWIMMING, TRAIT_COMMUNICATION), 0, False]
+	print(calculate_animal_food_requirements(animal)) 
+	```
+
+(b) (1.5 points): Write a function `**count_animal_victory_points(animal)**` to get a total value of an animal (if it is fully fed at the end of the game), as this will be used to count the total victory points for a player in the end of game phase.
+- Input:
+	- animal is a list or tuple following the format of animal_template
+- Return:
+	- An integer representing number of victory points an owner player would receive for the animal once it has finally survived.
+- Example:
+	```
+	animal = [(TRAIT_CARNIVORE, TRAIT_SWIMMING, TRAIT_COMMUNICATION), 0, False]
+	print(count_animal_victory_points(animal))
+	```
+
+(c) (2 points): Write a function `**can_predator_attack_prey(predator_animal, prey_animal)**` to determine whether one animal can attack another animal.
+- Input:
+	- `predator_animal` is a list following the format of `animal_template`
+	- `prey_animal` is a list following the format of `animal template`
+- Return:
+	- A boolean representing if the predator is able to attack
+- Example:
+	```
+	predator_animal=[(TRAIT_CARNIVORE, TRAIT_SWIMMING, TRAIT_COMMUNICATION),0, False]
+	prey_animal_1=[(TRAIT_SWIMMING,TRAIT_COMMUNICATION),0, False]
+	prey_animal_2=[(TRAIT_RUNNING,TRAIT_COMMUNICATION),0, False]
+	print(can_predator_attack_prey(predator_animal, prey_animal_1)) #True
+	print(can_predator_attack_prey(predator_animal, prey_animal_2)) #False
+	```
+
+(d) (2 points): Write a function `**check_animal_not_fully_fed_and_feed(animal, red_tokens_eaten_count, blue_tokens_eaten_count, token_to_feed)**` that checks if an animal can be fed, and updates their `is_fully_fed_status` and `consumed_food_count` if possible.
+- Input:
+	- `animal` is a list or tuple following the format `animal_template`
+	- `red_tokens_eaten_count` is the number of red tokens already eaten
+	- `blue_tokens_eaten_count` is the number of red tokens already eaten
+	- `token_to_feed` is a constant `RED_TOKEN = 0` or `BLUE_TOKEN = 1` used to described which counter to increment
+- Return:
+	- a tuple `(updated_animal, new_red_tokens_eaten_count, new_blue_tokens_eaten_count, was_fed)`where:
+		- `updated _animal` is a new copy of the animal where the the animal food count has been updated
+		- `new_red_tokens_eaten_count` is the number of red (food) tokens now eaten
+		- `new+blue_tokens_eaten_count` is the number of blue (food) tokens now eaten
+		- `was_fed` is a boolean representing whether the animal was fed or not (because you cannot feed an animal that is full)
+- Example:
+	```
+	animal=[(TRAIT_CARNIVORE, TRAIT_SWIMMING, TRAIT_COMMUNICATION), 0, False]
+	red_tokens_eaten_count = 2
+	blue_tokens_eaten_count = 2
+	token_to_feed = BLUE_TOKEN
+	check_animal_not_fully_fed_and_feed(animal, red_tokens_eaten_count, blue_tokens_eaten_count, token_to_feed) # ([(0,3,1),1,False,2,3,True]))
+	```
+
+Question 2
+**Function interface**
+(a) (4 points): Write a function `**feed_animal_red_token(player_animals, animal_to_feed_index) **` that simulates what happens when an animal is given a red (food) token.
+- Input:
+	- `player_animals` is a list or tuple following the format `animals_template` for the player whose move we are simulating.
+	- `animal_to_feed_index` selects an animal from the `animals_template` of the player moving in this turn to who we are giving a red food token to.
+- Return:
+	- a tuple (`updated_player_animals, new_red_tokens_eaten_count, new_blue_tokens_eaten_count`) where:
+		- `updated_player_animals` is a new copy of player_animals with the `consumed_food_count` and `is_fully_fed` updated for each animal (see animals_template for details)
+		- `new_red_tokens_eaten_count` is the number of red (food) tokens eaten after simulating this move
+		- `new_blue_tokens_eaten_count` is the number of blue (food) tokens eaten after simulating this move
+- Example:
+	```
+	player_animals =[
+    		[(TRAIT_RUNNING, TRAIT_COMMUNICATION), 0, False],
+    		[(TRAIT_CARNIVORE, TRAIT_SWIMMING, TRAIT_COMMUNICATION), 0, False], 
+   		[(TRAIT_HIBERNATION, TRAIT_SWIMMING, TRAIT_COMMUNICATION), 0, True], 
+    		[(TRAIT_CARNIVORE, TRAIT_SWIMMING, TRAIT_RUNNING), 0, False]
+	]
+	print(feed_animal_red_token(player_animals,0))
+	# ([[(4,1),1,True],[(0,3,1),1,False],[(7,3,1),0,True],[(0,3,4),0,False]],2,0)
+	```
+
+	```
+	player_animals = [[(4, 2),0,False],[(0,3,2),0,False],[(7,3,2),0,True],[(0,3,9),0,False]]
+	print(feed_animal_red_token(player_animals,0))
+	# ([[(4,2),1,True],[(0,3,2),1,False],[(7,3,2),0,True],[(0,3,9),0,False]],1,1)
+	```
+
+- Note:
+	- You may assume the `is_fully_fed` status of a given animal will be accurate relative to the other input parameters, there was an error in the example for question 2(a) that has been corrected.
+	- Clarified that for Q2a you should count up the number of red and blue tokens eaten in that specific turn from 0.
+	- Implement using simple syntax
+**Please don't forget:**
+- Check that an animal about to receive food, is not fully fed
+- Remember pairwise traits operate between adiacent animals. The pairwise traits are stored in the `traits_template` of the animal with a lower index. No two pairs may have more than one of the same pairwise trait. Any time an animal with a pairwise trait is fed, it may use one pairwise trait, with priority for using any pairwise trait with the higher index adjacent animal first if it is possible, otherwise the lower index adjacent animal. in the case of multiple pairwise traits as per the simplified conventions, `TRAIT_COOPERATION` takes precedence over `TRAIT_COMMUNICATION` . Note that you cannot play a pairwise trait between the same two animals more than once in any turn.
+
+
+(b)(4 points): Write a function `**find_greedy_feeding_count(players, focus_player_index, red_tokens_available)**` to determine the number of red tokens wanted by each player, before each turn of the focus player in a specific round of the feeding stage, under the heuristic that every player that is not the focus player is "greedy", and wants to get the most number of tokens possible in a given turn. Note that we start a specific round of the feeding stage with the player at index 0 and go around looping back to the start until we run out of red tokens.
+- Input:
+	- `players` is a list following the format of `players_template`
+	- `focus_player_index` is the index of the player who's optimal game play strategy we will want to eventually simulate without using the greedy heuristic.
+	- `red_tokens_available` is the amount of red tokens in the food bank for this round
+- Return:
+	- A list `max_red_tokens_before_focus_player_turn_in_round` of integers where the value at a given index represents the sum of the tokens taken by all players before the focus player's turn, since their last turn (or since the start of the round when it is not their first turn).
+Example:
+	```
+	player1_animals =[[(TRAIT_RUNNING, ), 0, False], [(TRAIT_RUNNING, ), 0, False]]
+	player2_animals =[[(TRAIT_RUNNING, ), 0, False], [(TRAIT_RUNNING, ), 0, False], [(TRAIT_RUNNING, TRAIT_COMMUNICATION), 0, False]]
+	player1 = [player1_animals]
+	player2 = [player2_animals]
+	players = [player1, player2]
+	focus_player_index= 1
+	red_tokens_available =5
+	print(find_greedy_feeding_count(players, focus_player_index,red_tokens_available))
+	# [1,1]
+	```
+
+	```
+	players = [[[[(4,),0,False],[(4,),0,False],[(4,),0,False]]],[[[(4,),0,False],[(4,),0,False],[(4,1),0,False]]],[[[(0,4),0,False],[(4,),0,False],[(4,),0,False]]]]
+	focus_player_index = 1
+	red_tokens_available = 5
+	print(find_greedy_feeding_count(players, focus_player_index,red_tokens_available))
+	# [1,2,2]
+	```
+
+	```
+	players = [[[[(2,),0,False],[(9,),0, False],[(10,),0,False],[(3,8),0,False],[(0,4),0,False]]],[[[(9,),0,False],[(11,),0,False],[(3,5),0,False],[(4,),0,False],[(4,5,6,10,11),0, False]]],[[[(5,),0,False],[(0,3,10,11),0,False],[(1,9,10),0,False],[(4,),0,False],[(0,5),0,False]]]]
+    focus_player_index = 2
+    red_tokens_available = 25
+    print(find_greedy_feeding_count(players, focus_player_index, red_tokens_available))
+    # [2,2,2,2,2,1,1,1,1,1,1]
+    ```
+
+Question 3
+To simplify the simulation process, we don't thoroughly simulate feeding of non-focus player animals. inline with this decision, to keep things simple, we assume that
+- All non-focus animals keep their `is_fully_fed` status as they had it at the beginning, when the function has been called. Particularly, it means that all carnivores that were originally hungry, remain hungry and are counted as potential attackers throughout the whole simulation.
+In this task we will find the total number of possible attacker/prey pairs before we start feeding any animals. This is really an overestimation at later moments where animals could have become extinct, which we will accept for the sake of simplicity.
+
+**Function Interface**
+(a) (3 points): Write a function `**create_ attack_map(players)**` to determine all animals in the game that, every specific animal can attack, and all animals in the game that can attack a specific animal.
+- Input:
+	- `players` is a list following the format of `players_template`
+- Return:
+	- A tuple `(animal_can_attack, animal_attacked_by)`
+		- `animal_can_attack` is a dictionary representing the animals that a specific animal can attack.
+			- Each key is a specific animal in the game represented as a tuple `(player_index, animal_index)`, and the value associated it is a list of tuples of specific animals represented
+as `(player_index, animal_index)`
+		- `animal_attacked_by` is a dictionary representing the animals that can attack a specific animal
+			- Each key is a specific animal in the game represented as a tuple `(player_index, animal_index)`, and the value associated it is a list of tuples of specific animals represented
+as `(player_index, animal_index)`
+- Example:
+	```
+	player1_animals =[[(TRAIT_CARNIVORE, ), 0, False], [(TRAIT_RUNNING,TRAIT_CARNIVORE), 0, False]]
+	player2_animalS =[[(TRAIT_COMMUNICATION, ), 0, False], [(TRAIT_RUNNING,TRAIT_CARNIVORE), 0, False]]
+	player1 =[player1_animals]
+	player2 =[player2_animals]
+	players =[player1,player2]
+	animal_can_attack, animal_attacked_by = create_attack_map(players)
+	print(animal_can_attack) # {(0, 0): [(1, 0)], (0, 1): [(1, 0),(1, 1)], (1, 1): [(0, 0), (0, 1)]}
+	print(animal_attacked_by) # {(1, 0): [(0, 0), (0, 1)], (1, 1): [(0, 1)], (0, 0): [(1, 1)], (0, 1): [(1, 1)]}
+	```
+
+While hungry non-carnivores must go extinct once the food bank is over, hungry carnivores still have a chance to attack one of their potential prey animals. To survive when there is no more red (food) tokens in the food bank, an animal should attack someone `(r + 1)//2` times, where
+	- `r` is the number of food pieces remaining to full satisfaction of the animal's food requirements.
+		- lf the expected number of prey for that carnivore is greater than `((r + 1)//2)*2`, we will assume100% chance of survival
+			- Heuristical Reason: we want to have at least twice the necessary number of prey to be originally available, because many of them would go extinct, or become resistant etc.
+		- Otherwise, the chance is linearly proportional with `(number_of_pray)/(((r+1)//2*2))`
+Now we have a probability survival based on the animals ability to hunt other animals for food:
+	- `1.0` for fed animals
+	- `0.0` for hungry non-carnivores
+	- Avariable number `0.0` and `1.0` for hungry carnivores
+But the animal has another challenge: to survive potential attacks. To simulate that, for each potential attacker, we multiply the survival chance by the probability of NOT being attacked by that animal.
+**Note**: Remember that fuly fed burrowing animals, and poisonous animals are resistant against carnivores.
+To count the probability mentioned, we assume that:
+	- Every potential attacker attacks some animal with a chance of `0.5` (50%)
+		- Heuristical Reason: it's rather lilkely an animal would extinct or get fully fed before it manages to attack this animal
+	- lf it attacks, it randomly (at a uniform (equal) probability per animal) chooses one of their potential prey animals as per out calculation in part (a)
+
+(b)(3 points): Write a function `**calculate_food_crisis_survival_chance(players, player_index, animal_index, animal_can_attack, animal_attacked by) to estimate the probability of surviving the end of the feeding phase, without having to simulate all possibilities as described by our heuristic.
+- Input
+	- `players` is a list following the format of `player_template`
+	- `player_index` is which players animal we are calculating the survival chance for
+	- `animal_index` is which animal of a specific player we are calculating the survival chance for
+	- `animal_can_attack` is a dictionary in the format output by question 3(a)
+	- `animal_attacked_by` is a dictionary in the format output by question 3(b)
+- Return:
+	- A float representing the chance of survival during the extinction phase based on our heuristic.
+- Example:
+	```
+	player1_animals =[[(TRAIT_CARNIVORE,),0,False],[(TRAIT_RUNNING,TRAIT_CARNIVORE),0,False]]
+	player2_animals =[[(TRAIT_COMMUNICATION,),0,False],[(TRAIT_RUNNING,TRAIT_CARNIVORE),0,False]]
+	player1 = [player1_animals]
+	player2 = [player2_animals]
+	players = [player1, player2]
+	print(animal_can_attack) # {(0,0):[(1,0)],(0,1):[(1,0),(1,1)],(1,1):[(0,0),(0,1)]}
+	print(animal_attacked_by) # {(1,0):[(0,0),(0,1)],(1,1):[(0,1)],(0,0):[(1,1)],(0,1):[(1,1)]}
+	player_index=1
+	animal_index=1
+	print(calculate_food_crisis_survival_chance(players, player_index,animal_index,animal_can_attack, animal_attacked_by)) # 0.75
+	```
+
+Question 4
+**Function Interface**
+(4 points): Write a function `**simulate_optimal_feeding_phase_gameplay(players, focus_player_index, red_tokens_available)**` to determine the estimated best final value (in victory points) that you would have at the end of the feeding phase, and animal feeding choices made each turn to reach that estimated best final value. In this case of ties for the best value, we will feed the animal with the lowest index for a given turn.
+- Input:
+	- `players` is a list following the format of `players_template`
+	- `focus_player_index` is the player whose optimal game play we want to simulate under our heuristicso
+	- `red_tokens_available` is the number of red (food) tokens available in this round of the feeding phase
+- Return:
+	- A tuple `(best score, best turns)`
+		- `best_score` is a float representing the estimated final score (in victory points) the sum over all animals of (survival chance for animal * victory points for animal)/(n_animals)
+		- `best_turns` is a list of turns made by the focus plaver that led to the best score in a specific round
+			- A turn in the list is represented by the index of an animal in the focus plaver's animal list which they want to feed.
+- Example:
+	```
+	player1_animals = [[(TRAIT_RUNNING,), 0, False], [(TRAIT_RUNNING,), 0, False]]
+    player2_animals = [[(TRAIT_RUNNING, TRAIT_COMMUNICATION), 0, False], [(TRAIT_RUNNING,), 0, False]]
+    player1 = [player1_animals]
+    player2 = [player2_animals]
+    players = [player1, player2]
+    focus_player_index = 1
+    red_tokens_available = 4
+    print(simulate_optimal_feeding_phase_gameplay(players, focus_player_index, red_tokens_available))
+    # (7.0, [0])
+    ```
+
+    ```
+    player1_animals = [[(TRAIT_RUNNING, TRAIT_CARNIVORE), 0, False], [(TRAIT_RUNNING,), 0, False]]
+    player2_animals = [[(TRAIT_RUNNING,), 0, False], [(TRAIT_RUNNING,), 0, False]]
+    player1 = [player1_animals]
+    player2 = [player2_animals]
+    players = [player1, player2]
+    focus_player_index = 1
+    red_tokens_available = 4
+    print(simulate_optimal_feeding_phase_gameplay(players, focus_player_index, red_tokens_available))
+    # (4.5, [0, 1])
+    ```
+
+    ```
+    player1_animals = [[(4, 0), 0, False], [(4,), 0, False]]
+    player2_animals = [[(4,), 0, False], [(4,), 0, False]]
+    player3_animals = [[(0, 1), 0, False], [(4, 1), 0, False], [(4, 5), 0, False], [(9, 8), 0, False]]
+    player1 = [player1_animals]
+    player2 = [player2_animals]
+    player3 = [player3_animals]
+    players = [player1, player2, player3]
+    focus_player_index = 2
+    red_tokens_available = 15
+    print(simulate_optimal_feeding_phase_gameplay(players, focus_player_index, red_tokens_available))
+    # (16.875, [0, 0, 2, 3])
+    ```
+
+
+
+
+
+
+
